@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -23,7 +22,7 @@ public class UserService {
         return newUser;
     }
 
-    private void saveUser(User newUser) {
+    public void saveUser(User newUser) {
         this.repository.save(newUser);
     }
 

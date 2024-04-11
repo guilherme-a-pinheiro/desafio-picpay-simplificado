@@ -23,8 +23,11 @@ public class TransactionService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private NotificationService notificationService;
 
-    public Object createTransaction(TransactionDTO transaction) throws Exception {
+
+    public Transaction createTransaction(TransactionDTO transaction) throws Exception {
             var payer = userService.findUserById(transaction.payerId());
             var payee = userService.findUserById(transaction.payeeId());
 
@@ -42,7 +45,17 @@ public class TransactionService {
             newTransaction.setPayee(payee);
             newTransaction.setTransactionTime(LocalDateTime.now());
 
-            
+            payer.setBalance(payer.getBalance().subtract(transaction.amount()));
+            payee.setBalance(payee.getBalance().add(transaction.amount()));
+
+            repository.save(newTransaction);
+            userService.saveUser(payer);
+            userService.saveUser(payee);
+
+            notificationService.sendNotification(payer, "Successful transaction");
+            notificationService.sendNotification(payee, "The amount of R$ " + newTransaction.getAmount() + " was transferred to your account");
+
+            return newTransaction;
     }
 
     public boolean authorizeTransaction(){
@@ -50,7 +63,8 @@ public class TransactionService {
 
         if (response.getStatusCode() == HttpStatus.OK){
             String message = (String) response.getBody().get("message");
-            return "Authorized".equalsIgnoreCase(message);
+            "Authorized".equalsIgnoreCase(message);
+            return true;
         }
         else {
             return false;
