@@ -6,6 +6,8 @@ import guilherme.pinheiro.picpaysimplificado.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -20,6 +22,10 @@ public class UserService {
 
     private void saveUser(User newUser) {
         this.repository.save(newUser);
+    }
+
+    public List<User> findAll(){
+        return repository.findAll();
     }
 
 }
