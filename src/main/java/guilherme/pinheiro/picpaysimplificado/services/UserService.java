@@ -18,7 +18,7 @@ public class UserService {
 
     public User createUser(UserDTO user){
         User newUser = new User(user);
-        this.saveUser(newUser);
+        saveUser(newUser);
         return newUser;
     }
 
