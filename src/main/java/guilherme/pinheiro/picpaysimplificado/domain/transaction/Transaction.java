@@ -29,4 +29,44 @@ public class Transaction {
     private User payee;
 
     private LocalDateTime transactionTime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public User getPayer() {
+        return payer;
+    }
+
+    public void setPayer(User payer) {
+        this.payer = payer;
+    }
+
+    public User getPayee() {
+        return payee;
+    }
+
+    public void setPayee(User payee) {
+        this.payee = payee;
+    }
+
+    public LocalDateTime getTransactionTime() {
+        return transactionTime;
+    }
+
+    public void setTransactionTime(LocalDateTime transactionTime) {
+        this.transactionTime = transactionTime;
+    }
 }
