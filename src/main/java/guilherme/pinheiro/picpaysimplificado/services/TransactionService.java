@@ -53,9 +53,6 @@ public class TransactionService {
             userService.saveUser(payer);
             userService.saveUser(payee);
 
-            notificationService.sendNotification(payer, "Successful transaction");
-            notificationService.sendNotification(payee, "The amount of R$ " + newTransaction.getAmount() + " was transferred to your account");
-
             return newTransaction;
     }
 
